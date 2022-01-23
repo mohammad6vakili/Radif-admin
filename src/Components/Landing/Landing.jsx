@@ -21,6 +21,10 @@ import mellat from "../../assets/images/mellat.svg";
 import iranzamin from "../../assets/images/iranzamin.svg";
 import shahr from "../../assets/images/shahr.svg";
 import parsian from "../../assets/images/parsian.svg";
+import safOne from "../../assets/images/saf-one.png";
+import safTwo from "../../assets/images/saf-two.png";
+import clockIcon from "../../assets/images/clock.svg";
+import upFooterBg from "../../assets/images/upfooter-bg.png";
 
 
 const Landing=()=>{
@@ -137,6 +141,65 @@ const Landing=()=>{
             <div className="landing-section-five">
                 <div>شما می توانید همین حالا فرم پیوستن مرکز خود را برای ما ارسال کنید تا مرکز شما هم برای مشتریان ردیف نمایش داده شود.</div>
                 <Button>پیوستن به ردیف</Button>
+            </div>
+            <div className="landing-section-six">
+                <div className='landing-blog-box-vertical'>
+                    <img src={safOne} alt="saf" />
+                    <div>
+                        <div>سیستم های مدیریت صف</div>
+                        <div>
+                            <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                            <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                        </div>
+                        <div>
+                            سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                        </div>
+                    </div>
+                </div>
+                <div className='landing-blog-box-horizintal-wrapper'>
+                    <div>
+                        <img src={safTwo} alt="saf" />
+                        <div>
+                            <div>سیستم های مدیریت صف</div>
+                            <div>
+                                <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                                <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                            </div>
+                            <div>
+                                سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src={safTwo} alt="saf" />
+                        <div>
+                            <div>سیستم های مدیریت صف</div>
+                            <div>
+                                <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                                <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                            </div>
+                            <div>
+                                سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='landing-blog-box-vertical'>
+                    <img src={safOne} alt="saf" />
+                    <div>
+                        <div>سیستم های مدیریت صف</div>
+                        <div>
+                            <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                            <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                        </div>
+                        <div>
+                            سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style={{width:"100%",marginTop:"30px"}}>
+                <img style={{width:"100%"}} src={upFooterBg} alt="bg" />
             </div>
         </div>
     )
