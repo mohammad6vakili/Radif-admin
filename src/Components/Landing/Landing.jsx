@@ -12,6 +12,15 @@ import bazar from "../../assets/images/bazar.png";
 import myket from "../../assets/images/myket.png";
 import google from "../../assets/images/google.png";
 import direct from "../../assets/images/direct.png";
+import whyOne from "../../assets/images/why-icon-one.svg";
+import whyTwo from "../../assets/images/why-icon-two.svg";
+import whyThree from "../../assets/images/why-icon-three.svg";
+import whyFour from "../../assets/images/why-icon-four.svg";
+import ansar from "../../assets/images/ansar.svg";
+import mellat from "../../assets/images/mellat.svg";
+import iranzamin from "../../assets/images/iranzamin.svg";
+import shahr from "../../assets/images/shahr.svg";
+import parsian from "../../assets/images/parsian.svg";
 
 
 const Landing=()=>{
@@ -69,6 +78,65 @@ const Landing=()=>{
                 <div>
                     <img src={twoMobile} alt="app" />
                 </div>
+            </div>
+            <div className="landing-section-three">
+                <div className='landing-section-three-title'>
+                    چرا اپلیکیشن ردیف ؟
+                </div>
+                <div className='landing-section-three-texts'>
+                    <div
+                        style={{width:"30%"}}
+                        className='landing-section-three-small-text'
+                    >
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد
+                    </div>
+                    <div className='landing-section-three-small-textbox'>
+                        <div>
+                            <img src={whyOne} alt="why radif" />
+                            <div>
+                                <div>آسیاب به نوبت !</div>
+                                <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src={whyTwo} alt="why radif" />
+                            <div>
+                                <div>آسیاب به نوبت !</div>
+                                <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='landing-section-three-small-textbox'>
+                        <div>
+                            <img src={whyThree} alt="why radif" />
+                            <div>
+                                <div>آسیاب به نوبت !</div>
+                                <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src={whyFour} alt="why radif" />
+                            <div>
+                                <div>آسیاب به نوبت !</div>
+                                <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="landing-section-four">
+                <div>مشتریان ما</div>
+                <div>
+                    <img src={parsian} alt="our customer" />
+                    <img src={shahr} alt="our customer" />
+                    <img src={iranzamin} alt="our customer" />
+                    <img src={mellat} alt="our customer" />
+                    <img src={ansar} alt="our customer" />
+                </div>
+            </div>
+            <div className="landing-section-five">
+                <div>شما می توانید همین حالا فرم پیوستن مرکز خود را برای ما ارسال کنید تا مرکز شما هم برای مشتریان ردیف نمایش داده شود.</div>
+                <Button>پیوستن به ردیف</Button>
             </div>
         </div>
     )
