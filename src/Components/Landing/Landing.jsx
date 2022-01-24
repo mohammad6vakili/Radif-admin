@@ -25,12 +25,22 @@ import safOne from "../../assets/images/saf-one.png";
 import safTwo from "../../assets/images/saf-two.png";
 import clockIcon from "../../assets/images/clock.svg";
 import upFooterBg from "../../assets/images/upfooter-bg.png";
+import logoWhite from "../../assets/images/logo-white.svg";
+import instagram from "../../assets/images/instagram.svg";
+import linkdin from "../../assets/images/linkdin.svg";
+import facebook from "../../assets/images/facebook.svg";
+import youtube from "../../assets/images/youtube.svg";
+import location from "../../assets/images/location.svg";
+import call from "../../assets/images/call.svg";
+import email from "../../assets/images/email.svg";
+import hamIcon from "../../assets/images/ham.svg";
 
 
 const Landing=()=>{
     return(
         <div className='landing'>
             <div className='landing-header'>
+                <img className='landing-header-ham-icon' src={hamIcon} alt="menu" />
                 <img src={Logo} alt="logo" />
                 <div className='landing-header-links'>
                     <div>خانه</div>
@@ -142,23 +152,14 @@ const Landing=()=>{
                 <div>شما می توانید همین حالا فرم پیوستن مرکز خود را برای ما ارسال کنید تا مرکز شما هم برای مشتریان ردیف نمایش داده شود.</div>
                 <Button>پیوستن به ردیف</Button>
             </div>
-            <div className="landing-section-six">
-                <div className='landing-blog-box-vertical'>
-                    <img src={safOne} alt="saf" />
-                    <div>
-                        <div>سیستم های مدیریت صف</div>
-                        <div>
-                            <img style={{width:"20px"}} src={clockIcon} alt="clock" />
-                            <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
-                        </div>
-                        <div>
-                            سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
-                        </div>
-                    </div>
+            <div className='landing-section-six-wrapper'>
+                <div className='landing-section-six-title'>
+                    <div>وبلاگ</div>
+                    <div>مشاهده همه اخبار و مقالات</div>
                 </div>
-                <div className='landing-blog-box-horizintal-wrapper'>
-                    <div>
-                        <img src={safTwo} alt="saf" />
+                <div className="landing-section-six">
+                    <div className='landing-blog-box-vertical'>
+                        <img src={safOne} alt="saf" />
                         <div>
                             <div>سیستم های مدیریت صف</div>
                             <div>
@@ -170,8 +171,36 @@ const Landing=()=>{
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <img src={safTwo} alt="saf" />
+                    <div className='landing-blog-box-horizintal-wrapper'>
+                        <div>
+                            <img src={safOne} alt="saf" />
+                            <div>
+                                <div>سیستم های مدیریت صف</div>
+                                <div>
+                                    <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                                    <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                                </div>
+                                <div>
+                                    سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src={safOne} alt="saf" />
+                            <div>
+                                <div>سیستم های مدیریت صف</div>
+                                <div>
+                                    <img style={{width:"20px"}} src={clockIcon} alt="clock" />
+                                    <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
+                                </div>
+                                <div>
+                                    سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='landing-blog-box-vertical'>
+                        <img src={safOne} alt="saf" />
                         <div>
                             <div>سیستم های مدیریت صف</div>
                             <div>
@@ -181,25 +210,58 @@ const Landing=()=>{
                             <div>
                                 سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='landing-blog-box-vertical'>
-                    <img src={safOne} alt="saf" />
-                    <div>
-                        <div>سیستم های مدیریت صف</div>
-                        <div>
-                            <img style={{width:"20px"}} src={clockIcon} alt="clock" />
-                            <span style={{fontSize:"12px",color:"#64748B",marginRight:"5px"}}>۱۴۰۰/۰۲/۲۵</span>
-                        </div>
-                        <div>
-                            سیستم های مدیریت صف  ما برای پاسخگویی به نیازهای صنعت بانکداری بصورت هوشمندانه طراحی شده است. تجربه سالیان ما و حضور گسترده در بازار فروش این اجازه را به ما داده است.
                         </div>
                     </div>
                 </div>
             </div>
             <div style={{width:"100%",marginTop:"30px"}}>
                 <img style={{width:"100%"}} src={upFooterBg} alt="bg" />
+            </div>
+            <div className='landing-footer'>
+                <div className='landing-footer-top'>
+                    <div className='landing-footer-top-right'>
+                        <div>
+                            <img src={logoWhite} alt="saff logo" />
+                            <div>شرکت نرم افزاری ردیف</div>
+                        </div>
+                        <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد</div>
+                    </div>
+                    <div className='landing-footer-left'>
+                        <div className="footer-info">
+                            <img src={location} alt="location" />
+                            <div>
+                                تهران، خیابان آزادی، بعد از دانشگاه صنعتی شریف، موسسه پژوهشی ردیف
+                            </div>
+                        </div>
+                        <div className="footer-info">
+                            <img src={call} alt="call" />
+                            <div>
+                                ۰۲۱ - ۴۴۴۴۴۴۴۴۴
+                            </div>
+                        </div>
+                        <div className="footer-info">
+                            <img src={email} alt="email" />
+                            <div>
+                                info@radif.ir
+                            </div>
+                        </div>
+                        <div className="footer-download">
+                            <img src={myket} alt="myket" />
+                            <img src={bazar} alt="bazar" />
+                            <img src={google} alt="google play" />
+                            <img src={direct} alt="direct" />
+                        </div>
+                    </div>
+                </div>
+                <div className='landing-footer-bottom'>
+                    <span>ما را در شبکه های اجتماعی دنبال کنید</span>
+                    <div>
+                        <img src={youtube} alt="social" />
+                        <img src={facebook} alt="social" />
+                        <img src={linkdin} alt="social" />
+                        <img src={instagram} alt="social" />
+                    </div>
+                </div>
             </div>
         </div>
     )
