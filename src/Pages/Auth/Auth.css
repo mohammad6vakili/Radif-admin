@@ -75,3 +75,25 @@
     margin-top: 12px;
     font-size: 20px;
 }
+.modal{
+    background-color: white;
+    position: relative;
+    padding: 30px 30px 10px 30px;
+    font-size: 15px;
+    border-radius: 12px !important;
+}
+.modal-logo{
+    position:absolute;
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 6px 6px 0 0 !important;
+    top: -60px;
+    right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-logo>img{
+    width: 60%;
+}

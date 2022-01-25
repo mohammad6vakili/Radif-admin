@@ -24,7 +24,7 @@ const Login=()=>{
                 position:"bottom-left"
             });
         }else{
-            history.push("/dashboard");
+            history.push("/dashboard/manage");
         }
     }
 

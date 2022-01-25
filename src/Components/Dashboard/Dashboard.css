@@ -1,0 +1,23 @@
+.dashboard{
+    width: 100%;
+    height: 100vh;
+    background-color: #F8FAFC;
+    direction: rtl;
+    display: flex;
+}
+.dashboard-body{
+    width: calc(100% - 220px);
+    padding: 15px;
+    scrollbar-width: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dashboard-body::-webkit-scrollbar{
+    display: none !important;
+}
+.dashboard-body-main{
+    width: 100%;
+    height: calc(100% - 11vh);
+    overflow-y: auto;
+}

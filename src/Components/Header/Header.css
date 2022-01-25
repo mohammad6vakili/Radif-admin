@@ -1,0 +1,64 @@
+.header {
+  width: 100%;
+  height: 9vh;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  color: #475569;
+  font-size: 18px;
+}
+.header-icons{
+    display: flex;
+}
+.header-icons>div{
+    margin-right: 10px;
+    background-color: #F1F5F9;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.header-icons>div>div{
+    position:absolute;
+    width: 15px;
+    height: 15.5px;
+    border-radius: 50%;
+    background-color: #f1910c;
+    right: -4px;
+    top: -4px;
+}
+.header-popover-menu{
+    color: #475569;
+}
+.header-popover-menu>div{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.header-popover-menu>div:hover{
+    background-color: rgba(247, 245, 245, 0.685) !important;
+    border-radius: 4px;
+}
+.notif-popover{
+    width: 250px !important;
+}
+.notif-popover>div{
+    border-bottom: 1px solid #E2E8F0;
+    text-align: right;
+    color: #475569;
+    font-size: 12px;
+}
+.notif-popover>div:last-child{
+    border-bottom: unset;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+}

@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import "./Auth.css";
-import { Button, Input , Select} from 'antd';
+import { Button, Input , Select , Modal} from 'antd';
 import { useHistory } from 'react-router-dom';
-import { UserOutlined , LockOutlined , EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
+import logo from "../../assets/images/logo.svg";
 import signupImage from "../../assets/images/signup-image.png";
 import { toast } from 'react-toastify';
 const { Option } = Select;
@@ -15,6 +15,8 @@ const Login=()=>{
     const [city , setCity]=useState("");
     const [email , setEmail]=useState("");
     const [mobile , setMobile]=useState("");
+    
+    const [modal , setModal]=useState(false);
 
     const SignupHandler=()=>{
         if(name===""){
@@ -42,12 +44,31 @@ const Login=()=>{
                 position:"bottom-left"
             });
         }else{
-            history.push("/dashboard");
+            setModal(true);
         }
     }
 
     return (
         <div style={{direction:"ltr"}} className='login'>
+            <Modal
+                visible={modal}
+                onCancel={()=>history.push("/")}                
+                onOk={()=>history.push("/")}                
+                closable={false}
+            >
+                <div className='modal'>
+                    <div className='modal-logo'>
+                        <img src={logo} alt="logo" />
+                    </div>
+                    <div style={{color:"#475569"}}>از اینکه وقت گذاشتید، از شما ممنونیم. همکاران ما در اولین فرصت با شما تماس خواهند گرفت.</div>
+                    <div 
+                        onClick={()=>history.push("/")}
+                        style={{color:"#F1910C",marginTop:"20px",width:"100%",textAlign:"center",cursor:"pointer"}}
+                    >
+                        بازگشت به صفحه اصلی
+                    </div>
+                </div>
+            </Modal>
             <div className='login-box-wrapper'>
                 <div style={{height:"90vh"}} className="login-box">
                     <div style={{marginBottom:"30px"}}>پیوستن به ردیف</div>
