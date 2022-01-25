@@ -2,6 +2,7 @@ import React from 'react';
 import "./Landing.css";
 import Logo from "../../assets/images/logo.svg";
 import { Button } from 'antd';
+import { useHistory } from 'react-router-dom';
 import userIcon from "../../assets/images/user-icon.svg";
 import constroctBg from "../../assets/images/landing-constroct-bg.svg";
 import manImage from "../../assets/images/landing-man-img.png";
@@ -37,6 +38,9 @@ import hamIcon from "../../assets/images/ham.svg";
 
 
 const Landing=()=>{
+
+    const history=useHistory();
+
     return(
         <div className='landing'>
             <div className='landing-header'>
@@ -50,7 +54,10 @@ const Landing=()=>{
                     <div>بلاگ</div>
                     <div>تماس با ما</div>
                 </div>
-                <Button className="landing-header-btn">
+                <Button 
+                    onClick={()=>history.push("/login")}
+                    className="landing-header-btn"
+                >
                     <img src={userIcon} alt="login" />
                     <span>ورود به حساب کاربری</span>
                 </Button>
@@ -67,7 +74,9 @@ const Landing=()=>{
                             <img style={{marginLeft:"5px"}} src={playIcon} alt="play icon" />
                             درباره ردیف
                         </Button>
-                        <Button>
+                        <Button
+                            onClick={()=>history.push("/signup")}
+                        >
                             پیوستن به ردیف
                         </Button>
                     </div>
@@ -150,7 +159,9 @@ const Landing=()=>{
             </div>
             <div className="landing-section-five">
                 <div>شما می توانید همین حالا فرم پیوستن مرکز خود را برای ما ارسال کنید تا مرکز شما هم برای مشتریان ردیف نمایش داده شود.</div>
-                <Button>پیوستن به ردیف</Button>
+                <Button 
+                    onClick={()=>history.push("/signup")}
+                >پیوستن به ردیف</Button>
             </div>
             <div className='landing-section-six-wrapper'>
                 <div className='landing-section-six-title'>

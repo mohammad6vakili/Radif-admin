@@ -1,0 +1,77 @@
+.login{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+.login>img:nth-child(2){
+    width: 60%;
+    height: 100%;
+}
+.login>img:nth-child(3){
+    position:absolute;
+    top: 5px;
+    right: 15px;
+}
+.login-box-wrapper{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-box{
+    width: 70%;
+    height: 70vh;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    background-color: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 25px;
+}
+.login-box>div:nth-child(1){
+    font-size: 22px;
+}
+.auth-input-box{
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.auth-input-box>span,.login-forget-pass{
+    font-size: 16px;
+    color: #475569;
+}
+.auth-input-box>span:nth-child(2),.auth-input-box>div,.auth-input-box>div>div{
+    border-radius: 12px !important;
+    border: 1px solid #E2E8F0 !important;
+    margin-top: 10px;
+    height: 45px !important;
+}
+.auth-input-box>div>div{
+    height: 100% !important;
+    margin-top:0;
+}
+.auth-input-box>div>div span{
+    display: flex;
+    align-items: center !important;
+}
+.auth-input-box>span:nth-child(2)>input{
+    margin-right: 10px;
+}
+.auth-submit-btn,.auth-submit-btn:hover,.auth-submit-btn:focus{
+    width: 100% !important;
+    height: 50px !important;
+    background-color: #f1910c !important;
+    color: white !important;
+    border: none !important;
+    font-size: 18px !important;
+    border-radius: 12px !important;
+    margin-top: 30px;
+}
+.login-box>div:last-child{
+    padding:0 30px;
+    margin-top: 12px;
+    font-size: 20px;
+}
