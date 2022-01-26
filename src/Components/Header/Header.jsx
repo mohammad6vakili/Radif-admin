@@ -1,11 +1,13 @@
 import React from 'react';
 import "./Header.css";
 import {Popover} from "antd";
+import { useHistory } from 'react-router-dom';
 import notifIcon from "../../assets/images/notif-icon.svg";
 import profileIcon from "../../assets/images/profile-icon.svg";
 
 
 const Header=()=>{
+    const history=useHistory();
     const array = [1,2,3,4];
 
     const notifMenu = (
@@ -21,12 +23,15 @@ const Header=()=>{
 
     const userMenu = (
         <div className='header-popover-menu'>
-          <div style={{borderBottom:'1px solid #E2E8F0'}}>
-              مشاهده پروفایل
-          </div>
-          <div>
-              خروج از حساب کاربری
-          </div>
+            <div
+                onClick={()=>history.push("/dashboard/profile")}
+                style={{borderBottom:'1px solid #E2E8F0'}}
+            >
+                مشاهده پروفایل
+            </div>
+            <div>
+                خروج از حساب کاربری
+            </div>
         </div>
     );
 

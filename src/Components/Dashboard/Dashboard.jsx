@@ -8,6 +8,7 @@ import Report from "../../Pages/Dashboard/Report";
 import Service from "../../Pages/Dashboard/Service";
 import Messages from "../../Pages/Dashboard/Messages";
 import Statistic from "../../Pages/Dashboard/Statistic";
+import Profile from '../../Pages/Dashboard/Profile';
 
 
 const Dashboard=()=>{
@@ -18,6 +19,7 @@ const Dashboard=()=>{
                 <Header/>
                 <div className='dashboard-body-main'>
                 <Switch>
+                    <Route path={"/dashboard/profile"} component={Profile} />
                     <Route path={"/dashboard/manage"} component={Manage} />
                     <Route path={"/dashboard/report"} component={Report} />
                     <Route path={"/dashboard/service"} component={Service} />

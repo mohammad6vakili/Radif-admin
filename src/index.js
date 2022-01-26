@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import 'antd/dist/antd.css';
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Helper/NotifStyle.css";
 import {Provider} from "react-redux";
