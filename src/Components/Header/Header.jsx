@@ -29,7 +29,7 @@ const Header=()=>{
             >
                 مشاهده پروفایل
             </div>
-            <div>
+            <div onClick={()=>history.push("/")}>
                 خروج از حساب کاربری
             </div>
         </div>

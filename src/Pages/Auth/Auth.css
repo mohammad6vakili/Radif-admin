@@ -22,7 +22,7 @@
 }
 .login-box{
     width: 70%;
-    height: 70vh;
+    height: 76vh;
     border-radius: 10px;
     border: 1px solid #E2E8F0;
     background-color: #F8FAFC;
@@ -62,7 +62,7 @@
 }
 .auth-submit-btn,.auth-submit-btn:hover,.auth-submit-btn:focus{
     width: 100% !important;
-    height: 50px !important;
+    height: 45px !important;
     background-color: #f1910c !important;
     color: white !important;
     border: none !important;

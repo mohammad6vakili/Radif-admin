@@ -65,3 +65,14 @@
   border: 1px solid #64748B !important;
   padding: 10px !important;
 }
+.ant-select-arrow{
+  right: unset !important;
+  left: 7px!important;
+}
+.DatePicker {
+  display: flex !important;
+  justify-content: center !important;
+}
+.date-picker-calendar{
+  z-index: 999999999999 !important;
+}

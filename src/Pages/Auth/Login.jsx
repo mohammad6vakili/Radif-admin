@@ -59,7 +59,7 @@ const Login=()=>{
                     >
                         ورود به پنل
                     </Button>
-                    <div>هنوز عضو ردیف نشده اید؟ همین حالا <span onClick={()=>history.push("/signup")} style={{color:"#f1910c",cursor:"pointer"}}>فرم پیوستن به ردیف</span> را پر کنید.</div>
+                    <div style={{fontSize:"16px"}}>هنوز عضو ردیف نشده اید؟ همین حالا <span onClick={()=>history.push("/signup")} style={{color:"#f1910c",cursor:"pointer"}}>فرم پیوستن به ردیف</span> را پر کنید.</div>
                 </div>
             </div>
             <img src={loginImage} alt="login" />

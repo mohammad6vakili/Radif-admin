@@ -1,24 +1,104 @@
-.statistic{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    background-color: white;
-    flex-direction: column;
+.statistic {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }
-.statistic-header{
+.statistic-header {
+  width: 100%;
+  height: 15vh;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.statistic-header > div {
+  width: 20%;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.statistic-header > div:last-child {
+    width: 150px
+}
+.statistic-header-select-wrapper > div{
+    display: flex;
+}
+.statistic-header-select-wrapper > div,
+.statistic-header-select-wrapper > div > div {
+  border-radius: 8px !important;
+  width: 80%;
+  min-width: 160px;
+  display: flex;
+  align-items: center !important;
+  border: 1px solid #cbd5e1;
+  height: 38px !important;
+}
+.amar-date-picker {
+  width: 90% !important;
+  border: 1px solid #cbd5e1 !important;
+  height: 40px;
+  text-align: right !important;
+}
+.amar-date-picker:focus {
+  border: 1px solid #0af !important;
+  box-shadow: 0px 1px 3px rgba(0, 170, 255, 0.37);
+}
+.statistic-header-select-wrapper button,
+.statistic-header-select-wrapper button:hover,
+.statistic-header-select-wrapper button:focus {
+  width: 120px;
+  border-radius: 6px !important;
+  background-color: #f1910c;
+  color: white;
+  border: none;
+  height: 40px;
+}
+.amar-calendar{
+    font-size: 7.5px !important;
+}
+.statistic-chart-wrapper{
     width: 100%;
-    height: 15vh;
-    padding:10px 20px;
-    border: 1px solid red;
+    height: calc(100% - 15vh);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.statistic-header-select-wrapper>div,.statistic-header-select-wrapper>div>div{
-    border-radius: 8px !important;
-    width: 250px;
+.statistic-chart-wrapper>div{
+    width: 32%;
+    height: 65%;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
     display: flex;
-    align-items: center !important;
-    border: 1px solid #CBD5E1;
-    height: 40px !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.statistic-chart-wrapper>div>div{
+    width: 90%;
+    height: 82%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.statistic-chart-wrapper>div>div>div{
+    display: flex;
+    align-items: center;
+}
+.chart-title{
+    width: 90% !important;
+    height: 18% !important;
+    border-top: 1px solid #E2E8F0;
+    color: #94A3B8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media only screen and (max-width:1250px){
+    .statistic-header>div{
+        margin-bottom: 1vh;
+    }
 }
