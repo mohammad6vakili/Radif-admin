@@ -18,6 +18,9 @@
   align-items: center;
   justify-content: flex-start;
 }
+.mobile{
+  display: none;
+}
 .ant-modal-footer{
   display: none;
 }
@@ -75,4 +78,21 @@
 }
 .date-picker-calendar{
   z-index: 999999999999 !important;
+}
+@media only screen and (max-width:1000px){
+  .App{
+    display: none;
+  }
+  .mobile{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    background-color: #64748B;
+  }
 }

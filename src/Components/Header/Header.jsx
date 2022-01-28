@@ -17,7 +17,7 @@ const Header=()=>{
                     عباس جعفری با شماره رزرو 2145 جهت افتتاح حساب وارد مرکز شد.
                 </div>
             ))}
-            <div>مشاهده همه اعلان ها</div>
+            <div onClick={()=>history.push("/dashboard/messages")}>مشاهده همه اعلان ها</div>
         </div>
     );
 
