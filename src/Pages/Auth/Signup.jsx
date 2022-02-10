@@ -5,11 +5,17 @@ import { useHistory } from 'react-router-dom';
 import logo from "../../assets/images/logo.svg";
 import signupImage from "../../assets/images/signup-image.png";
 import { toast } from 'react-toastify';
+import axios from "axios";
+import Env from "../../Constant/Env.json";
+import { useEffect } from 'react';
 const { Option } = Select;
 
 
 const Login=()=>{
     const history=useHistory();
+    const [cities , setCities]=useState(null);
+    const [provinces , setProvinces]=useState(null);
+
     const [name , setName]=useState("");
     const [province , setProvince]=useState("");
     const [city , setCity]=useState("");
@@ -18,7 +24,32 @@ const Login=()=>{
     
     const [modal , setModal]=useState(false);
 
-    const SignupHandler=()=>{
+    const getProvinces=async()=>{
+        try{
+            const response = await axios.get(Env.baseUrl + "/location/province-list/");
+            setProvinces(response.data.ContentData);
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            })
+        }
+    }
+
+    const getCities=async(id)=>{
+        try{
+            const response = await axios.post(Env.baseUrl + "/location/city-list/",{
+                province_id:id
+            });
+            setCities(response.data.ContentData);
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            })
+        }
+    }
+    
+    const SignupHandler=async(e)=>{
+        e.preventDefault();
         if(name===""){
             toast.warning("لطفا نام و نام خانوادگی خود را وارد کنید",{
                 position:"bottom-left"
@@ -44,9 +75,27 @@ const Login=()=>{
                 position:"bottom-left"
             });
         }else{
+            try{
+                const response = await axios.post(Env.baseUrl + "/accounts/join-us/",{
+                    name:name,
+                    email:email,
+                    phone:mobile,
+                    city:city
+                });
+                console.log(response.data);
+                setModal(true);
+            }catch({err,response}){
+                toast.error(response && response.data.message,{
+                    position:"bottom-left"
+                })
+            }
             setModal(true);
         }
     }
+
+    useEffect(()=>{
+        getProvinces();
+    },[])
 
     return (
         <div style={{direction:"ltr"}} className='login'>
@@ -70,7 +119,7 @@ const Login=()=>{
                 </div>
             </Modal>
             <div className='login-box-wrapper'>
-                <div style={{height:"90vh"}} className="login-box">
+                <form onSubmit={SignupHandler} style={{height:"90vh"}} className="login-box">
                     <div style={{marginBottom:"30px"}}>پیوستن به ردیف</div>
                     <div style={{marginBottom:"10px"}} className="auth-input-box">
                         <span>نام و نام خانوادگی</span>
@@ -89,14 +138,17 @@ const Login=()=>{
                             showSearch
                             placeholder="انتخاب کنید"
                             optionFilterProp="children"
-                            onChange={(value)=>setProvince(value)}
+                            onChange={(value)=>{
+                                getCities(value);
+                                setProvince(value);
+                            }}
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                         >
-                            <Option value="1">1</Option>
-                            <Option value="2">2</Option>
-                            <Option value="3">3</Option>
+                            {provinces && provinces.length>0 && provinces.map((data)=>(
+                                <Option value={data.id} key={data.id}>{data.name}</Option>
+                            ))}
                         </Select>
                     </div>
                     <div style={{marginBottom:"10px"}} className="auth-input-box">
@@ -111,14 +163,15 @@ const Login=()=>{
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                         >
-                            <Option value="1">1</Option>
-                            <Option value="2">2</Option>
-                            <Option value="3">3</Option>
+                            {cities && cities.length>0 && cities.map((data)=>(
+                                <Option value={data.id} key={data.id}>{data.name}</Option>
+                            ))}
                         </Select>
                     </div>
                     <div style={{marginBottom:"10px"}} className="auth-input-box">
                         <span>آدرس ایمیل</span>
                         <Input
+                            required
                             style={{marginTop:"5px"}}
                             type={"email"}
                             placeHolder={"Example@Example.com"}
@@ -139,12 +192,12 @@ const Login=()=>{
                         />
                     </div>
                     <Button
-                        onClick={SignupHandler} 
+                        htmlType='submit'
                         className="auth-submit-btn"
                     >
                         پیوستن به ردیف
                     </Button>
-                </div>
+                </form>
             </div>
             <img src={signupImage} alt="login" />
         </div>

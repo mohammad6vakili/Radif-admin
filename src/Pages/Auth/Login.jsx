@@ -6,6 +6,8 @@ import { UserOutlined , LockOutlined , EyeInvisibleOutlined, EyeTwoTone} from '@
 import logo from "../../assets/images/logo.svg";
 import loginImage from "../../assets/images/login-image.png";
 import { toast } from 'react-toastify';
+import axios from "axios";
+import Env from "../../Constant/Env.json";
 
 
 
@@ -14,7 +16,7 @@ const Login=()=>{
     const [username , setUsername]=useState("");
     const [password , setPassword]=useState("");
 
-    const LoginHandler=()=>{
+    const LoginHandler=async()=>{
         if(username===""){
             toast.warning("لطفا نام کاربری خود را وارد کنید",{
                 position:"bottom-left"
@@ -24,7 +26,21 @@ const Login=()=>{
                 position:"bottom-left"
             });
         }else{
-            history.push("/dashboard/manage");
+            try{
+                const response = await axios.post(Env.baseUrl + "/accounts/login-by-password/",{
+                    username:username,
+                    password:password
+                });
+                toast.success(response.data.message,{
+                    position:"bottom-left"
+                });
+                history.push("/dashboard/manage");
+                localStorage.setItem("token",response.data.token);
+            }catch({err,response}){
+                toast.error(response && response.data.message,{
+                    position:"bottom-left"
+                });
+            }
         }
     }
 

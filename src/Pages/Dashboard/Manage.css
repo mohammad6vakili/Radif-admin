@@ -97,6 +97,26 @@
   background-color: #fffde7;
   color: #fbc02d;
 }
+.manage-right-list-item-label-present{
+  border-radius: 6px;
+  width: 80px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7bbd79;
+  color: #ffffff;
+}
+.manage-right-list-item-label-absent{
+  border-radius: 6px;
+  width: 80px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fd7373;
+  color: #ffffff;
+}
 .manage-right-list > div > div:nth-child(3) > div:nth-child(2) {
   display: flex;
   align-content: center;

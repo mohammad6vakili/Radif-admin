@@ -9,16 +9,65 @@ import ticketIcon from "../../assets/images/ticket.svg";
 import logo from "../../assets/images/logo.svg";
 import { Input , Modal , Button} from 'antd';
 import { toast } from 'react-toastify';
+import moment from 'jalali-moment';
+import FormatHelper from "../../Helper/FormatHelper";
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
+import { useEffect } from 'react';
 
 
 
 const Messages=()=>{
     const [modal , setModal]=useState(false);
-    const array=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+
+    const [notifs , setNotifs]=useState(null);
+    const [selectedNotif , setSelectedNotif]=useState(null);
+
+    const getNotifs=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + "/notification/notification/",{
+                headers:{
+                    "Authorization":"Token "+token
+                }
+            });
+            setNotifs(response.data.results);
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            });
+        }
+    }
+
+    const deleteNotif=async(id)=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.delete(Env.baseUrl + `/notification/notification/${id}/`,{
+                headers:{
+                    "Authorization":"Token "+token
+                }
+            });
+            getNotifs();
+            toast.success("پیام مورد نظر با موفقیت حذف شد",{
+                position:"bottom-left"
+            });
+            setModal(false);
+        }catch({err , response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            })
+        }
+    }
+
     const [selectedDayRange, setSelectedDayRange] = useState({
         from: null,
         to: null
       });
+
+      useEffect(()=>{
+        getNotifs(); 
+      },[])
+
     return(
         <div className='messages'>
             <Modal
@@ -35,12 +84,7 @@ const Messages=()=>{
                     <div style={{width:"100%",textAlign:"center",marginTop:"10px"}}>آیا از حذف پیام اطمینان دارید؟</div>
                     <div className='messages-modal-button'>
                         <Button onClick={()=>setModal(false)}>انصراف</Button>
-                        <Button onClick={()=>{
-                            toast.success("پیام مورد نظر با موفقیت حذف شد",{
-                                position:"bottom-left"
-                            });
-                            setModal(false);
-                        }}>حذف کردن</Button>
+                        <Button onClick={()=>deleteNotif(selectedNotif)}>حذف کردن</Button>
                     </div>
                 </div>
             </Modal>
@@ -71,21 +115,20 @@ const Messages=()=>{
                 </div>
             </div>
             <div className='message-items-body'>
-                <div>
+                {/* <div>
                     <div>
                         ۱۴۰۰/۱۲/۲۸
                     </div>
-                </div>
-                {array.map((data)=>(
+                </div> */}
+                {notifs && notifs.length>0 && notifs.map((data)=>(
                     <div className='message-item'>
                         <img src={clockIcon} alt="time" />
-                        <div style={{direction:"ltr",fontSize:"15px",margin:"0 10px"}}>۰۹ : ۲۸</div>
-                        <div style={{marginRight:"20px"}}>عباس جعفری با شماره رزرو 2145 جهت افتتاح حساب وارد مرکز شد.</div>
+                        <div style={{direction:"ltr",fontSize:"15px",margin:"0 10px"}}>
+                            {FormatHelper.toPersianString(moment(data.date).locale('fa').format('HH:mm'))}
+                        </div>
+                        <div style={{marginRight:"20px"}}>{data.content}</div>
                         <div className='message-item-icons'>
-                            <div>
-                                <img src={ticketIcon} alt="message" />
-                            </div>
-                            <div onClick={()=>setModal(true)}>
+                            <div onClick={()=>{setModal(true);setSelectedNotif(data.id);}}>
                                 <img src={trashIcon} alt="trash" />
                             </div>
                         </div>

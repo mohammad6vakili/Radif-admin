@@ -4,17 +4,39 @@ import {Popover} from "antd";
 import { useHistory } from 'react-router-dom';
 import notifIcon from "../../assets/images/notif-icon.svg";
 import profileIcon from "../../assets/images/profile-icon.svg";
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 
 const Header=()=>{
     const history=useHistory();
-    const array = [1,2,3,4];
+
+    const [notifs , setNotifs]=useState(null);
+
+    const getNotifs=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + "/notification/notification/",{
+                headers:{
+                    "Authorization":"Token "+token
+                }
+            });
+            setNotifs(response.data.results);
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            });
+        }
+    }
 
     const notifMenu = (
         <div className='header-popover-menu notif-popover'>
-            {array.map((arr)=>(
-                <div>
-                    عباس جعفری با شماره رزرو 2145 جهت افتتاح حساب وارد مرکز شد.
+            {notifs && notifs.length>0 && notifs.map((data , index)=>(
+                <div key={index}>
+                    {data.content}
                 </div>
             ))}
             <div onClick={()=>history.push("/dashboard/messages")}>مشاهده همه اعلان ها</div>
@@ -34,6 +56,10 @@ const Header=()=>{
             </div>
         </div>
     );
+
+    useEffect(()=>{
+        getNotifs();
+    },[])
 
     return(
         <div className='header'>

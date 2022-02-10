@@ -1,9 +1,15 @@
 import React,{useEffect, useState} from 'react';
 import "./Manage.css";
-import {Button,Popover,Modal,Input,Select} from "antd";
-import DatePicker,{ Calendar } from "react-modern-calendar-datepicker";
+import {Button,Popover,Modal,Input,Select,Spin} from "antd";
+import DatePicker,{ Calendar , utils } from "react-modern-calendar-datepicker";
 import { useHistory } from 'react-router-dom';
+import { useSelector , useDispatch} from 'react-redux';
+import {setProfile} from "../../Store/Action";
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
+import moment from 'jalali-moment';
+import FormatHelper from "../../Helper/FormatHelper";
 import logo from "../../assets/images/logo.svg";
 import successLogo from "../../assets/images/success-logo.svg";
 import plusIcon from "../../assets/images/plus.svg";
@@ -24,21 +30,106 @@ const {Option}=Select;
 
 const Manage=() =>{
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const profile = useSelector(state=>state.Reducer.profile);
+
     const [step , setStep]=useState(0);
     const [modal , setModal]=useState(false);
+
+    const [turnList , setTurnList]=useState(null);
+    const [times , setTimes]=useState(null);
+    const [services , setServices]=useState(null);
+    
     const [selectedDayCalendar, setSelectedDayCalendar]=useState(null);
     const [selectedDay, setSelectedDay]=useState(null);
+    const [date , setDate]=useState(null);
+    
     const [selectedTime , setSelectedTime]=useState(null);
     const [name , setName]=useState("");
     const [service , setService]=useState(null);
-    const array = [1,2,3,4,5,6,7,8,9];
-    const timeArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
 
-    const nextHandler=()=>{
+    const [selectedTurn , setSelectedTurn]=useState(null);
+
+    const array = [1,2,3,4,5,6,7,8,9];
+
+
+    const getQueue=async(index)=>{
+        const token = localStorage.getItem("token");
+            if(index===undefined){
+                    try{
+                        const response = await axios.get(Env.baseUrl + "/rqueue/turn/",{
+                            headers:{
+                                "Authorization":"Token "+token
+                            }
+                        });
+                        setTurnList(response.data.results);
+                    }catch({err,response}){
+                            toast.error(response && response.data.message,{
+                                position:"bottom-left"
+                            });
+                        }
+                }else{
+                    try{
+                        const response = await axios.get(Env.baseUrl +`/rqueue/turn/?created_at=${index}`,{
+                            headers:{
+                                "Authorization":"Token "+token
+                            }
+                        });
+                        setTurnList(response.data.results);
+                    }catch({err,response}){
+                            toast.error(response && response.data.message,{
+                                position:"bottom-left"
+                            });
+                        }
+                }
+            }
+
+            const getServices=async()=>{
+                const token = localStorage.getItem("token");
+                try{
+                    const response = await axios.get(Env.baseUrl + "/service/service/",{
+                        headers:{
+                            "Authorization":"Token "+token
+                        }
+                    });
+                    setServices(response.data.results);
+                }catch({err , response}){
+                    toast.error(response && response.data.message,{
+                        position:"bottom-left"
+                    })
+                }
+            }
+            
+    const nextHandler=async()=>{
+        const token = localStorage.getItem("token");
         if(step===0 && selectedDay===null){
             toast.warning("لطفا تاریخ را انتخاب کنید",{
                 position:"bottom-left"
             });
+        }else if(step===0 && selectedDay!==null){
+            try{
+                const response = await axios.post(Env.baseUrl + "/rqueue/turn-service-list/",{
+                    service_id:profile.employee_services[0].obb_service.service,
+                    organization_brand_id:profile.employee.obp_id,
+                    date: moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
+                    lat:"35.6992",
+                    long:"51.3378",
+                    priority:1,
+                    meter:100
+                },
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                });
+                setTimes(response.data.ContentData[0].turns);
+                setStep(step + 1);
+            }catch({err,response}){
+                toast.error(response && response.data.message,{
+                    position:"bottom-left"
+                })
+            }
         }else if(step===1 && selectedTime===null){
             toast.warning("لطفا زمان مراجعه را انتخاب کنید",{
                 position:"bottom-left"
@@ -55,26 +146,51 @@ const Manage=() =>{
             if(step !== 3){
                 setStep(step+1);
             }else{
-                setStep(0);
-                setModal(false);
-                setSelectedTime(null);
-                setSelectedDay(null);
-                setName("");
-                setService(null);
-                toast.success("نوبت با موفقیت ثبت شد",{
-                    position:"bottom-left"
-                });
+                try{
+                    const response = await axios.post(Env.baseUrl + "/rqueue/register-turn/",{
+                        turn_id:selectedTime,
+                        is_other:true,
+                        other_info:{
+                            first_name:name,
+                            service:service
+                        }
+                    },
+                    {
+                        headers:{
+                            "Authorization":"Token "+ token
+                        }
+                    });
+                    if(response.data.Header.Status===200){
+                        setStep(0);
+                        setModal(false);
+                        setSelectedTime(null);
+                        setSelectedDay(null);
+                        setName("");
+                        setService(null);
+                        toast.success("نوبت با موفقیت ثبت شد",{
+                            position:"bottom-left"
+                        });
+                    }else{
+                        toast.error("خطا در برقراری ارتباط",{
+                            position:"bottom-left"
+                        });
+                    }
+                }catch({err,response}){
+                    toast.error(response && response.data.message,{
+                        position:"bottom-left"
+                    });
+                }
             }
         }
     }
 
     const itemMenu = (
         <div className='manage-item-popover-menu'>
-          <div style={{borderBottom:'1px solid #E2E8F0'}}>
+          <div onClick={()=>changeStatus("present")} style={{borderBottom:'1px solid #E2E8F0'}}>
               <img src={presentIcon} alt="present" />
               حضور مشتری
           </div>
-          <div style={{borderBottom:'1px solid #E2E8F0'}}>
+          <div onClick={()=>changeStatus("absent")} style={{borderBottom:'1px solid #E2E8F0'}}>
               <img src={absentIcon} alt="absent" />
               لغو / عدم حضور مشتری
           </div>
@@ -84,7 +200,62 @@ const Manage=() =>{
           </div>
         </div>
     );
+
+    const getProfile=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + "/accounts/profile/",{
+                headers:{
+                    "Authorization":"Token "+token
+                }
+            });
+            dispatch(setProfile(response.data.ContentData));
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            })
+        }
+    }
+
+    const changeStatus=async(index)=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.patch(Env.baseUrl + `/rqueue/turn/${selectedTurn}/`,{
+                status:"reserved",
+                presence_status:index
+            },
+            {
+                headers:{
+                    "Authorization":"Token "+token
+                }
+            });
+            dispatch(setProfile(response.data.ContentData));
+        }catch({err,response}){
+            toast.error(response && response.data.message,{
+                position:"bottom-left"
+            })
+        }
+    }
+
+    useEffect(()=>{
+        getQueue();
+        getProfile();
+        getServices();
+        setSelectedDayCalendar(utils('fa').getToday()); 
+    },[])
     
+    useEffect(()=>{
+        if(selectedDay){
+            setDate(FormatHelper.toPersianString(selectedDay.year+"/"+selectedDay.month+"/"+selectedDay.day));
+        }
+    },[selectedDay])
+
+    useEffect(async()=>{
+        setDate(FormatHelper.toPersianString(selectedDayCalendar.year+"/"+selectedDayCalendar.month+"/"+selectedDayCalendar.day));
+        if(selectedDayCalendar){
+            getQueue(moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'));
+        }
+    },[selectedDayCalendar])
 
     return(
         <div className='manage'>
@@ -160,6 +331,7 @@ const Manage=() =>{
                                 <DatePicker
                                     value={selectedDay}
                                     inputClassName="step-date-picker"
+                                    minimumDate={utils('fa').getToday()}
                                     onChange={setSelectedDay}
                                     inputPlaceholder="انتخاب تاریخ"
                                     colorPrimary="#f1910c"
@@ -172,12 +344,17 @@ const Manage=() =>{
                         }
                         {step===1 &&
                             <div className='manage-modal-time-step'>
-                                {timeArray.map((data,index)=>(
+                                {times && times.length>0 && times.map((data,index)=>(
                                     <div 
-                                        onClick={()=>setSelectedTime(index)}
+                                        onClick={()=>{
+                                            if(data.status!=="reserved"){
+                                                setSelectedTime(data.id);
+                                            }
+                                        }}
+                                        style={data.status==="reserved" ? {opacity:".5"} : {opacity:"1"}}
                                         className={selectedTime===index ? "manage-modal-selected-time" : ""}
                                     >
-                                        ۸:۱۵ - ۸:۳۰
+                                        {FormatHelper.toPersianString(moment(data.time).locale('fa').format('HH:mm'))}
                                     </div>
                                 ))}
                             </div>
@@ -199,8 +376,8 @@ const Manage=() =>{
                                             placeholder="انتخاب کنید"
                                             onChange={(value)=>setService(value)}
                                         >
-                                            {array.map((data  , index)=>(
-                                                <Option value={index}>خدمت {index}</Option>
+                                            {services && services.length>0 && services.map((data  , index)=>(
+                                                <Option key={index} value={data.id}>{data.name}</Option>
                                             ))}
                                         </Select>
                                     </div>
@@ -223,9 +400,18 @@ const Manage=() =>{
                                         fontSize:"18px"
                                     }}
                                 >
-                                    <div style={{margin:"0 15px"}}>۱۴۰۰/۰۲/۲۵</div>
-                                    <div style={{margin:"0 15px"}}>۸:۱۵ - ۸:۳۰</div>
-                                    <div style={{margin:"0 15px"}}>محمد وکیلی</div>
+                                    <div style={{margin:"0 15px"}}>
+                                        {FormatHelper.toPersianString(selectedDay.year+"/"+selectedDay.month+"/"+selectedDay.day)}
+                                    </div>
+                                    <div style={{margin:"0 15px"}}>
+                                            {times && times.map((data)=>{
+                                                    if(data.id===selectedTime){
+                                                        return FormatHelper.toPersianString(moment(data.time).locale('fa').format('HH:mm'))
+                                                    }
+                                                })
+                                            }
+                                    </div>
+                                    <div style={{margin:"0 15px"}}>{name}</div>
                                 </div>
                             </div>
                         }
@@ -240,7 +426,24 @@ const Manage=() =>{
             </Modal>
             <div className='manage-right'>
                 <div className='manage-right-title'>
-                    <div>نوبت های  ۸ بهمن ۱۴۰۰</div>
+                    {selectedDayCalendar &&
+                        <div>نوبت های  {" "}
+                            {FormatHelper.toPersianString(selectedDayCalendar.day)}
+                            {selectedDayCalendar.month===1 && " فروردین "}
+                            {selectedDayCalendar.month===2 && " اردیبهشت "}
+                            {selectedDayCalendar.month===3 && " خرداد "}
+                            {selectedDayCalendar.month===4 && " تیر "}
+                            {selectedDayCalendar.month===5 && " مرداد "}
+                            {selectedDayCalendar.month===6 && " شهریور "}
+                            {selectedDayCalendar.month===7 && " مهر "}
+                            {selectedDayCalendar.month===8 && " آبان "}
+                            {selectedDayCalendar.month===9 && " آذر "}
+                            {selectedDayCalendar.month===10 && " دی "}
+                            {selectedDayCalendar.month===11 && " بهمن "}
+                            {selectedDayCalendar.month===12 && " اسفند "}
+                            {FormatHelper.toPersianString(selectedDayCalendar.year)}
+                        </div>
+                    }
                     <Button
                         onClick={()=>setModal(true)}
                     >
@@ -249,27 +452,60 @@ const Manage=() =>{
                     </Button>
                 </div>
                 <div className='manage-right-list'>
-                    {array.map((data)=>(
-                        <div>
+                    {turnList===null &&
+                        <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
+                            <Spin size='large'/>
+                        </div>
+                    }
+                    {turnList && turnList.length>0 && turnList.map((data,index)=>(
+                        <div key={index}>
                             <Popover
                                 placement="bottomLeft" 
-                                title={""} 
-                                content={itemMenu} 
+                                title={""}
+                                onVisibleChange={()=>setSelectedTurn(data.id)}
+                                content={itemMenu}
                                 trigger="click"
                             >
                                 <img src={menuIcon} alt="menu" />
                             </Popover>
-                            <div>
-                                <div>محمد وکیلی</div>
-                                <div>افتتاح حساب قرض الحسنه</div>
-                            </div>
-                            <div>
-                                <div className='manage-right-list-item-label'>
-                                    در انتظار
+                            {data.others_info ? 
+                                <div>
+                                    <div>{data.others_info.first_name}</div>
+                                    <div>
+                                        {services.map((serv)=>{
+                                            if(serv.id===data.others_info.service){
+                                                return serv.name
+                                            }
+                                        })}
+                                    </div>
                                 </div>
+                            :
+                                <div>
+                                    <div>{data.user.first_name} {" "} {data.user.last_name}</div>
+                                    <div>{data.queue_list.service.name}</div>
+                                </div>
+                            }
+                            <div>
+                                {data.presence_status==="Pending" &&
+                                    <div className='manage-right-list-item-label'>
+                                        در انتظار
+                                    </div>
+                                }
+                                {data.presence_status==="Present" &&
+                                    <div className='manage-right-list-item-label-present'>
+                                        حضور
+                                    </div>
+                                }
+                                {data.presence_status==="Absent" &&
+                                    <div className='manage-right-list-item-label-absent'>
+                                        عدم حضور
+                                    </div>
+                                }
                                 <div>
                                     <img src={clockIcon} alt="time" />
-                                    <div>۱۲:۱۵ - ۱۲:۳۰</div>
+                                    <div>
+                                        {FormatHelper.toPersianString(moment(data.time).locale('fa').format('HH:mm'))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

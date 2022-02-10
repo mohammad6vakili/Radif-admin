@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import { useHistory } from 'react-router-dom';
 import Landing from './Components/Landing/Landing';
 import Login from './Pages/Auth/Login';
 import Signup from './Pages/Auth/Signup';
 import Dashboard from './Components/Dashboard/Dashboard';
 
 const App=()=> {
+
+  const history=useHistory();
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      history.push("/login");
+    }else{
+      history.push("/dashboard/manage");
+    }
+  },[])
 
   return (
     <>
